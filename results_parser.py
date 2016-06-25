@@ -70,17 +70,21 @@ def calc_team_elo(team):
 def get_avg_elo_diff(diff_list):
     total_diff = 0
     matches = 0
+    zeroes = 0
 
     max_diff = max(diff_list)
     min_diff = min(diff_list)
     complete_diff_list = ''
     for match in diff_list:
         matches += 1
+        if match == 0:
+            zeroes += 1
         total_diff += match
         complete_diff_list += str(match) + ','
     print 'Average diff over %s matches: %s' % (matches, float(total_diff/matches))
     print 'Minimum diff: %s' % min_diff
     print 'Maximum diff: %s' % max_diff
+    print 'Zero elo diff games: %s' % zeroes
     with open('elo_diff.csv', 'w+') as outfile:
         outfile.write(complete_diff_list)
     outfile.close()
